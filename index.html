@@ -1,0 +1,62 @@
+<html>
+<head>
+<style>
+body {height: 90vh}
+button {border-radius: 4px; border-style: double; height: 25px; display: block; background-color: yellow}
+button#autorefresh_off {float: left}
+button#autorefresh_on {float: left}
+button#autoscroll_off {float: left}
+button#autoscroll_on {}
+div#buttons {width: 100%; margin: 5px auto 15px auto}
+div#last {border-style: dotted; padding: 10px 3px; border-width: thin}
+div#results {border-style: dotted; padding: 10px 3px; border-width: thin}
+table {background-color: yellow; border-style: double; border-color: black; border-radius: 15px; width: 100%;}
+td#status {width: 16px; height: 16px; text-align: center; vertical-align: middle; margin-top: 4px; border-width: thin; padding: 3px}
+td#url {line-height: 24px; border-width: thin; padding: 3px; overflow: auto}
+td#resp_code {width: 50px; border-width: thin; padding: 3px; white-space: nowrap; overflow: auto}
+td#time {width: 100px; border-width: thin; padding: 3px}
+th {border-width: thin}
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script> 
+function loadLastResults(){
+    $("#last").load("last_results.txt");
+}
+
+function loadConsoleLog(){
+    $("#results").load("requests_log.out");
+}
+
+function scrollToBottom(){
+    $("#results").animate({scrollTop:$("#results")[0].scrollHeight}, 1000);
+}
+
+$(function(){
+    $("#results").load("requests_log.out");
+    $("#last").load("last_results.txt");
+    $("#results").animate({scrollTop:$("#results")[0].scrollHeight}, 2000);
+    $("#last").animate({scrollTop:$("#last")[0].scrollHeight}, 1000);
+});
+
+    refresh_interval = setInterval(function(){loadLastResults()}, 10000);
+    setInterval(function(){loadConsoleLog()}, 5000);
+    scroll_interval = setInterval(function(){scrollToBottom()}, 2000);
+    </script>
+<script>
+$(function(){
+
+});
+</script>
+</head>
+<body id="main">
+<div id="buttons">
+<button id="autorefresh_off" type="button" onclick="clearInterval(refresh_interval)">Turn off autorefresh</button>
+<button id="autorefresh_on" type="button" onclick="loadLastResults();refresh_interval=setInterval(function(){loadLastResults()}, 10000);">Turn on autorefresh</button>
+<div style="width: calc(50vw - 300px); min-height: 1px; float: left">&nbsp;</div>
+<button id="autoscroll_off" type="button" onclick="clearInterval(scroll_interval)">Turn off autoscroll</button>
+<button id="autoscroll_on" type="button" onclick="scrollToBottom();scroll_interval=setInterval(function(){scrollToBottom()}, 2000);">Turn on autoscroll</button></div>
+<div id="last" style="margin: 0 2 0 2; width:48%; height:100%; float:left; overflow: auto"></div>
+</table>
+<div id="results" style="margin: 0 2 0 2; width:48%; height:100%; float:left; overflow: auto; font-family: monospace"></div>
+</body>
+</html>

@@ -1,0 +1,15 @@
+# This is a list of URLs that will be used to send a request and measure the response time
+# Please use "|" character to separate the URL from strings that should be found on page
+# If you have multiple strings, use " ^ " char (including spaces) to separate them
+# You can also temporary block URL by using "#" character at the beginning of the line
+#
+http://www.google.pl | head
+http://www.wp.pl | maja ^ head ^ polska
+# http://www.llanfairpwllgwyngyllgogerychwyrndrobwllllantysiliogogogoch.co.uk | llanfairpwllgwyngyllgogerychwyrndrobwllllantysiliogogogoch
+https://httpstat.us/500 | 500
+https://httpstat.us/400 | 400
+https://httpstat.us/401 | 401
+https://httpstat.us/402 | 402
+https://httpstat.us/403 | 403
+https://httpstat.us/404 | 404
+http://onet.pl
